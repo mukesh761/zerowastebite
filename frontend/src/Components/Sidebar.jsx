@@ -11,7 +11,7 @@ const Sidebar = () => {
     
     return (
       
-            <div className='left h-screen w-40 shadow-red-200 flex flex-col justify-between m-2 bg-neutral-200 rounded-lg'>
+            <div className='left h-screen w-40 shadow-red-200 flex flex-col justify-between m-2 bg-neutral-200 rounded-lg '>
                 <div className='upper gap-y-2 font-semibold flex flex-col '>
                     <div className={selected=='Dashboard'?'transition-all duration-300 ease-in-out bg-green-400 text-white shadow-md scale-105 rounded-md flex items-center gap-2':'flex items-center gap-2'} onClick={()=>{setselected('Dashboard')}}>
                         <MdDashboard />

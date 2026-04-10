@@ -11,7 +11,7 @@ const Dashboard = () => {
         <div className='left'>
             <Sidebar/>
         </div>
-        <div className='right'>
+        <div className='right relative '>
             <div className='banner rounded flex items-center justify-between w-full shadow-green-200 shadow '>
                <div className='text'>
                  <h1 className='text-4xl font-semibold text-green-400'>Share Your Extra. Ease Their Hunger . </h1>
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <div className='shadow-md shadow-green-200'>
           <div className='surplusFoodInventory flex gap-2 items-center '>
             <MdInventory className='text-green-600' />
-            <h1>Surplus Food Inventory </h1>
+            <h1 className='font-bold text-lg'>Surplus Food Inventory </h1>
             </div>
             <div>
               <p>Current surplus items ready for redistribution</p>
