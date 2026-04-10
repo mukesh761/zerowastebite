@@ -5,11 +5,12 @@ import Signup from './authentication/Singup'
 import Sidebar from './Components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import Inventory from './pages/Inventory'
+import Donation from './pages/Donation'
 
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element = <Inventory/> />
+      <Route path='/' element = <Donation/> />
       <Route path='/login' element = <Login/> />
       <Route path='/signup' element = <Signup/> />
     </Routes>
