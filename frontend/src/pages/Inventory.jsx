@@ -9,7 +9,7 @@ import FoodPost from '../Components/FoodPost.jsx';
 
 const Inventory = () => {
   return (
-    <div className='flex w-screen border-2'> 
+    <div className='flex w-screen'> 
         <div className='left '>
             <Sidebar/>
         </div>
