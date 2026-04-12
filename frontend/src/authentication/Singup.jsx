@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // import loginImage from '../../assets/image.png'
 // import bowl from '../../assets/bowl.png'
 import LoginImg from '../assets/LoginImg.png'
 import { useState } from 'react'
+import axios from 'axios'
+import { userContext } from '../context/User.context'
+const backend = import.meta.env.VITE_BACKEND
 
 const Signup = () => {
     const [name, setname] = useState(null)
@@ -11,31 +14,33 @@ const Signup = () => {
   const [cPassword, setcPassword] = useState(null)
     const [loading, setloading] = useState(false)
     const [formate, setformate]=useState(true)
+    const {user,setuser,islogin,setislogin}=useContext(userContext)
 
     const handleSubmit=async(e)=>{
     e.preventDefault();
     setloading(true)
+    console.log(backend)
     console.log('signup clicked')
     setformate(validateEmail(email))
     if (!formate){
       return
     }
      
-    // const data={email,password}
-    // try{
-    //   const res=await axios.post('http://localhost:3000/user/login',data,{withCredentials:true})
-    //   console.log(res.data)
-    //   alert("Signup Successful! Please Login" )
-    //   localStorage.setItem('user',JSON.stringify(res.data.user))
-    //   localStorage.setItem('islogin',true)
-    //   setuser(res.data.user)
-    //   setislogin(true)
-    //   setloading(false)
-    //   console.log("User logged in successfully")
-  //   }
-  //   catch(err){
-  //     console.log(err)
-  //   }
+    const data={name,email,password,role:'NGO'}
+    try{
+      const res=await axios.post(`${backend}/user/signup`,data,{withCredentials:true})
+      console.log(res.data)
+      localStorage.setItem('user',JSON.stringify(res.data.newUser))
+      console.log(res.data.newUser)
+      localStorage.setItem(res.data.newUser && 'islogin',true)
+      setuser(res.data.user)
+      setislogin(true)
+      setloading(false)
+      console.log("User logged in successfully")
+    }
+    catch(err){
+      console.log(err)
+    }
 
 
   }

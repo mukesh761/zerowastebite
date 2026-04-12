@@ -5,8 +5,8 @@ import { generateToken } from "../utils/generateTokens.js";
 //function to login user
 export const signupUser=async(req,res)=>{
    try {
-    const {name,email,password}=req.body;
-    if(!name || !email || !username ||!password){
+    const {name,email,password,role}=req.body;
+    if(!name || !email || !password){
         return res.json({message:"all fields are required"});
     }
     let checkUser=await userModel.findOne({email}) ;
@@ -19,6 +19,7 @@ export const signupUser=async(req,res)=>{
     name,
     email,
     password:hash,
+    role,
    
    })
 

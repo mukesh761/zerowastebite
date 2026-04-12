@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // import loginImage from '../../assets/image.png'
 // import bowl from '../../assets/bowl.png'
 import LoginImg from '../assets/LoginImg.png'
 import { useState } from 'react'
+const backend = import.meta.env.VITE_BACKEND
+import axios from 'axios'
+import { userContext } from '../context/User.context'
+import { useNavigate } from 'react-router'
 
 const Login = () => {
     const [email, setemail] = useState(null)
     const [password, setpassword] = useState(null)
     const [loading, setloading] = useState(false)
     const [formate, setformate]=useState(true)
+    const {user,setuser,islogin,setislogin}=useContext(userContext)
+    const navigate=useNavigate()
+    
 
     const handleSubmit=async(e)=>{
     e.preventDefault();
@@ -19,21 +26,22 @@ const Login = () => {
       return
     }
      
-    // const data={email,password}
-    // try{
-    //   const res=await axios.post('http://localhost:3000/user/login',data,{withCredentials:true})
-    //   console.log(res.data)
-    //   alert("Signup Successful! Please Login" )
-    //   localStorage.setItem('user',JSON.stringify(res.data.user))
-    //   localStorage.setItem('islogin',true)
-    //   setuser(res.data.user)
-    //   setislogin(true)
-    //   setloading(false)
-    //   console.log("User logged in successfully")
-  //   }
-  //   catch(err){
-  //     console.log(err)
-  //   }
+    const data={email,password}
+    try{
+      const res=await axios.post(`${backend}/user/login`,data,{withCredentials:true})
+      console.log(res.data.newUser)
+      
+      localStorage.setItem('user',JSON.stringify(res.data.newUser))
+      localStorage.setItem(res.data.newUser && 'islogin',true)
+      setuser(res.data.newUser)
+      setislogin(true)
+      setloading(false)
+      console.log("User logged in successfully")
+      navigate('/')
+    }
+    catch(err){
+      console.log(err)
+    }
 
 
   }
