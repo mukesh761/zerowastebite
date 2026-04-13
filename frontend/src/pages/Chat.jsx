@@ -1,8 +1,16 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
 import { CiSearch } from 'react-icons/ci'
+import { useContext } from 'react'
+import { socketContext } from '../context/socket.io.context'
+import { useEffect } from 'react'
+
 
 const Chat = () => {
+    const {socket}=useContext(socketContext)
+    useEffect(()=>{
+        
+    })
     return (
         <div className='w-screen flex'>
             <div className='left'>
@@ -10,7 +18,7 @@ const Chat = () => {
             </div>
             <div className='right p-2 flex w-full'>
                 <div className='h-screen border-r rounded '>
-                    <div className='search h-8 w-60 rounded-full border flex items-center justify-center shadow-lg shadow-green-200 mb-8'>
+                    <div className='search h-8 w-60 rounded-md border flex items-center justify-center shadow-lg shadow-green-200 mb-8'>
                         <CiSearch className='h-6 w-6 ' />
                         <input type="text" className='h-full w-full border-none rounded-full p-2 focus:outline-none' placeholder='search here...' />
 

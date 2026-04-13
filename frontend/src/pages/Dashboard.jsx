@@ -4,8 +4,27 @@ import hunger from '../assets/hunger.png'
 import Info from '../Components/Info'
 import { MdInventory} from "react-icons/md";
 import FoodPost from '../Components/FoodPost';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Dashboard = () => {
+  const [items, setitems] = useState([])
+  const fetchItems = async () => {
+          try {
+              const response = await axios.get('http://localhost:3000/post/getfood', { withCredentials: true })
+              console.log(response.data)
+              setitems(response.data)
+  
+          } catch (error) {
+              console.log('error in backend', error)
+          }
+      }
+  
+      useEffect(() => {
+          fetchItems()
+      }, [setitems])
+
   return (
     <div className='flex'>
         <div className='left'>
@@ -38,7 +57,11 @@ const Dashboard = () => {
               <p>Current surplus items ready for redistribution</p>
             </div>
           </div>
-          <FoodPost/>
+        <div className='w-full'>
+                        {items.map((item, index) => (
+                            <FoodPost key={index} item={item} />
+                        ))}
+                    </div>
         </div>
         </div>
     </div>

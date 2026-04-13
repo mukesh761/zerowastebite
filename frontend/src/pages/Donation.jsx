@@ -1,12 +1,41 @@
 import React, { useState } from "react";
 import Sidebar from "../Components/Sidebar";
+import axios from 'axios'
+const backend = import.meta.env.VITE_BACKEND
 
 const Donation = () => {
   const [foodType, setFoodType] = useState("veg");
+  const [food, setfood] = useState("")
+  const [quantity, setquantity] = useState(null)
+  const [expireIn, setexpireIn] = useState(null)
+  const [location, setlocation] = useState('')
+  const [image, setImage] = useState(null);
+
+  
+
+  const handleSubmit=async (e)=>{
+    e.preventDefault();
+    try {
+      console.log('post donation is clicked')
+         const formData = new FormData();
+         formData.append('food',food);
+         formData.append('foodType',foodType);
+         formData.append('image',image);
+         formData.append('quantity',quantity);
+         formData.append('expireIn',expireIn);
+         formData.append('location',location);
+         const response = await axios.post(`${backend}/post/upload`, formData, {
+  withCredentials: true,
+});
+         console.log(response.data)
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
-        <Sidebar/>
+      <Sidebar />
       {/* RIGHT CONTENT */}
       <div className="flex-1 p-6 overflow-y-auto">
 
@@ -30,6 +59,8 @@ const Donation = () => {
               <label className="text-sm font-semibold">Food Name</label>
               <input
                 type="text"
+                value={food}
+                onChange={(e) => { setfood(e.target.value) }}
                 placeholder="e.g. Rice & Curry"
                 className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none"
               />
@@ -39,8 +70,10 @@ const Donation = () => {
             <div>
               <label className="text-sm font-semibold">Quantity</label>
               <input
-                type="text"
-                placeholder="e.g. Serves 10 people"
+                type="number"
+                value={quantity}
+                onChange={(e) => setquantity(e.target.value)}
+                placeholder="enter quantity in kg."
                 className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none"
               />
             </div>
@@ -49,7 +82,11 @@ const Donation = () => {
             <div>
               <label className="text-sm font-semibold">Expiry Time</label>
               <input
-                type="datetime-local"
+
+                type='number'
+                value={expireIn}
+                onChange={(e) => { setexpireIn(e.target.value) }}
+                placeholder="enter time in hours."
                 className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none"
               />
             </div>
@@ -84,7 +121,9 @@ const Donation = () => {
 
           {/* LOCATION */}
           <div className="mt-6">
-            <label className="text-sm font-semibold">Pickup Location</label>
+            <label className="text-sm font-semibold"
+           
+            >Pickup Location</label>
 
             <div className="h-64 mt-2 rounded-xl bg-gray-200 flex items-center justify-center">
               <p className="text-gray-500">📍 Map will be here</p>
@@ -94,15 +133,26 @@ const Donation = () => {
           {/* ADDRESS TEXT */}
           <div className="mt-4">
             <input
+             value={location}
+            onChange={(e)=>setlocation(e.target.value)}
               type="text"
               placeholder="Enter address manually"
               className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-200 focus:border-green-500 outline-none"
             />
           </div>
+          <div className="mt-4 flex flex-col">
+            <label className="font-semibold">upload photos</label>
+            <input type="file"
+              placeholder="enter photos"
+              className="border h-30"
+              onChange={(e)=>{setImage(e.target.files[0])}}
+            />
+          </div>
+         
 
           {/* SUBMIT */}
           <div className="mt-6 flex justify-end">
-            <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition shadow-md">
+            <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition shadow-md" onClick={handleSubmit}>
               🚀 Post Donation
             </button>
           </div>

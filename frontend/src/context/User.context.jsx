@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 const userContext= createContext()
-
+ const [isonline, setisonline] = useState(false)
 
 const UserProvider=({children})=>{
     const [islogin, setislogin] = useState(false)
