@@ -9,4 +9,9 @@ const io = new Server(httpServer, {
         methods: ['GET', 'POST']
     }
 })
+let users={}
+io.on('connection',(socket)=>{
+   console.log('user connected',socket.id)
+})
+
 export {io,app,httpServer}

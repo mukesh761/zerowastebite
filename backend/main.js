@@ -1,10 +1,12 @@
 import {app, httpServer} from './socket.io.js';
 import userRoute from './routes/userRoute.js';
+import postRoute from './routes/postRoute.js'
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import connection from './database/db.js';
 import cors from 'cors';
+import cloudinary from './utils/cloudinary.js';
 
 
 
@@ -25,6 +27,7 @@ app.get('/', (req, res) => {
     res.send('Server is running');
 });
 app.use("/user",userRoute)
+app.use('/post',postRoute)
 httpServer.listen(3000, () => {
     console.log('Server is running on port 3000');
 })

@@ -5,7 +5,7 @@ export const islogin=async (req,res,next)=>{
 try {
     const token = req.cookies.token;
 
-    // console.log(req.cookies)
+    console.log('cookie',req.cookies)
     if(!token){
         return res.json({message:"token not found"});
     }
