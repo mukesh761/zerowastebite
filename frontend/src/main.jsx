@@ -4,16 +4,18 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router'
 import {UserProvider} from './context/User.context.jsx'
-import {SocketProvider} from './context/socket.io.context.jsx'
+import { SocketProvider } from './context/socket.io.context.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
     <UserProvider>
-      <SocketProvider>
-
+     <SocketProvider>
     <App /> 
-      </SocketProvider>
+
+     </SocketProvider>
+
+      
     </UserProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -1,16 +1,12 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
 import { CiSearch } from 'react-icons/ci'
-import { useContext } from 'react'
-import { socketContext } from '../context/socket.io.context'
+
 import { useEffect } from 'react'
 
 
 const Chat = () => {
-    const {socket}=useContext(socketContext)
-    useEffect(()=>{
-        
-    })
+
     return (
         <div className='w-screen flex'>
             <div className='left'>

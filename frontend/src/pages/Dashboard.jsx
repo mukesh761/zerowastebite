@@ -41,11 +41,11 @@ const Dashboard = () => {
                </div>
             </div>
             <div className='flex items-center justify-evenly'>
-                <Info color='green' name='Waste Reduced' insite='+12' amount={'40 kg'} />
-                <Info color={'yellow'} name='Cost Saving ' insite='+12' amount={'rs 12300'} />
-                <Info color={'red'} name='People Feed' insite='+12' amount={409} />
-                <Info color={'cyan'} name={`NGO's Added`} insite='+12' amount={40} />
-                <Info color={'blue'} name={'Carbon Footprints '} insite='-20' amount={4089} />
+                <Info color='green' name='Waste Reduced' insite='+0' amount={' kg'} />
+                <Info color={'yellow'} name='Cost Saving ' insite='+12' amount={'rs 0'} />
+                <Info color={'red'} name='People Feed' insite='+0' amount={0} />
+                <Info color={'cyan'} name={`NGO's Added`} insite='+0' amount={0} />
+                <Info color={'blue'} name={'Carbon Footprints '} insite='-0' amount={0} />
             </div>
         <div className='foodInventory rounded-md border mt-2'>
           <div className='shadow-md shadow-green-200'>

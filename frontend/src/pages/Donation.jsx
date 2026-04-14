@@ -10,12 +10,14 @@ const Donation = () => {
   const [expireIn, setexpireIn] = useState(null)
   const [location, setlocation] = useState('')
   const [image, setImage] = useState(null);
+  const [status, setstatus] = useState(' 🚀 Post Donation')
 
   
 
   const handleSubmit=async (e)=>{
     e.preventDefault();
     try {
+      setstatus('Posting...')
       console.log('post donation is clicked')
          const formData = new FormData();
          formData.append('food',food);
@@ -28,6 +30,7 @@ const Donation = () => {
   withCredentials: true,
 });
          console.log(response.data)
+         setstatus('🚀 Post Donation')
     } catch (error) {
       
     }
@@ -153,7 +156,7 @@ const Donation = () => {
           {/* SUBMIT */}
           <div className="mt-6 flex justify-end">
             <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition shadow-md" onClick={handleSubmit}>
-              🚀 Post Donation
+              {status}
             </button>
           </div>
 

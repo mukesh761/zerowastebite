@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdDashboard,MdInventory ,MdChat, MdHelpCenter} from "react-icons/md";
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import Dashboard from '../pages/Dashboard';
 import { useNavigate } from 'react-router';
+import { userContext } from '../context/User.context';
 
 
 
@@ -13,13 +14,16 @@ const Sidebar = () => {
   localStorage.getItem('selected') || 'Dashboard'
 )
     const navigate=useNavigate()
-   
+   const {signOut}=useContext(userContext)
   const handleClick = (page, path) => {
   setselected(page)
   localStorage.setItem('selected', page)
   navigate(path)
 }
-
+const handleProfile=()=>{
+    setselected('')
+    navigate('/profile')
+}
     
     
     return (
@@ -54,11 +58,15 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <div className='profile border rounded-md'>
-                    <div className='upProfile flex gap-2 items-center border-b-2'>
-                        <div className='h-10 w-10 rounded-full bg-green-300 '></div>
+                    <div className='upProfile flex gap-2 items-center border-b-2'
+                    onClick={handleProfile}
+                    >
+                        <div className='h-10 w-10 rounded-full bg-green-300 '
+                        
+                        ></div>
                         <h3>mukesh kumar</h3>
                     </div>
-                    <div className='logout flex items-center gap-2'>
+                    <div className='logout flex items-center gap-2' onClick={signOut}>
                         <IoIosLogOut className='text-red-700 h-10 w-8' />
                         <h2>Sign out</h2>
                     </div>

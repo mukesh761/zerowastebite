@@ -64,7 +64,7 @@ export const loginUser=async (req,res)=>{
     httpOnly: true,
     secure: true,
     sameSite: 'None',
-   path: "/",  // Ensures the cookie works across subdomains
+    path: "/",  
     maxAge: 3600000*24*30,
 });
    return res.json({message:"user logged in",newUser})
