@@ -2,11 +2,35 @@ import React, { useContext } from 'react'
 import Sidebar from '../Components/Sidebar'
 import { userContext } from '../context/User.context'
 import { IoIosLogOut } from "react-icons/io";
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
+const backend = import.meta.env.VITE_BACKEND
 
 const Profile = () => {
+
+
+    const [selected, setselected] = useState('posts')
+    const [posts, setposts] = useState([])
     const user=JSON.parse(localStorage.getItem('user'))
     console.log(user)
     const {signOut}=useContext(userContext)
+
+    const getposts=async()=>{
+        console.log("fetching posts")
+        try {
+            const res=await axios.get(`${backend}/user/getposts`,{withCredentials:true})
+            const data=await res.data
+            setposts(data.posts)
+            console.log(data)
+        } catch (error) {
+            console.error('Error fetching posts:', error)
+        }
+    }
+
+    useEffect(()=>{
+        getposts()
+    },[])
   return (
     <div className='h-screen w-screen flex '>
         <div className='left'>
@@ -25,9 +49,46 @@ const Profile = () => {
                 </div>
 
             </div>
-            <div className='border h-full w-full  flex justify-center'>
-                <h1 className='text-xl font-bold '> requests</h1>
+            <div className='border h-full w-full  '>
+                <div className='flex gap-4'>
+                    <h1 className={selected === 'posts' ? 'font-bold text-green-600' : 'font-bold text-gray-600'} onClick={() => setselected('posts')} >Your Posts</h1>
+                    <h1 className={selected === 'requests' ? 'font-bold text-green-600' : 'font-bold text-gray-600'} onClick={() => setselected('requests')} >Requests</h1>
+
+                    
+                </div>
+                {selected === 'posts' &&posts.length > 0 ? (
+                    posts.map((item) => (
+                        <div key={item._id} className=' p-2 rounded-md mt-2 flex justify-between shadow-lg'>
+                            <h1>{item.food}</h1>
+                            <h1>{item.quantity}</h1>
+                            <h1>{item.type}</h1>
+                            <h1>{item.expireIn}</h1>
+                            <button className='bg-red-500 text-white px-4 py-2 rounded-md' >
+                                Delete
+                            </button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No posts found.</p>
+                )}  
+
+                 {selected === 'requests' &&posts.length > 0 ? (
+                    posts.map((item) => (
+                        <div key={item._id} className=' p-2 rounded-md mt-2 flex justify-between shadow-lg'>
+                            <h1>{item.food}</h1>
+                            <h1>{item.quantity}</h1>
+                            <h1>{item.type}</h1>
+                            <h1>{item.expireIn}</h1>
+                            <button className='bg-red-500 text-white px-4 py-2 rounded-md' >
+                                accept
+                            </button>
+                        </div>
+                    ))
+                ) : (
+                    <></>
+                )}  
             </div>
+            
         </div>
     </div>
   )

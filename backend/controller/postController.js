@@ -2,8 +2,10 @@
 import postModel from '../schema/postSchema.js'
 import fs from 'fs'
 import { v2 as cloudinary } from "cloudinary";
+import userModel from '../schema/userSchema.js';
 export const uploadPost=async (req,res)=>{
     try {
+        const userId=req.user.id;
         console.log('file',req.file)
         console.log('field',req.body)
         const cloud= await cloudinary.uploader.upload(req.file.path,{resource_type:'image'})
@@ -20,7 +22,11 @@ export const uploadPost=async (req,res)=>{
             }
         })
         console.log('uploaded succesfully ')
+        const user= await userModel.findById(userId);
+        user.post.push(newPost._id);
+        await user.save();
         res.json('uploaded succesfully',newPost)
+
 
     } catch (error) {
         console.log('error in uploading post ',error)

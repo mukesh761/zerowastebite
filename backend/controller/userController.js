@@ -5,7 +5,8 @@ import { generateToken } from "../utils/generateTokens.js";
 //function to login user
 export const signupUser=async(req,res)=>{
    try {
-    const {name,email,password,role}=req.body;
+    console.log(req.body)
+    const {name,email,password,role,orgname}=req.body;
     if(!name || !email || !password){
         return res.json({message:"all fields are required"});
     }
@@ -88,5 +89,21 @@ export const logoutUser=(req,res)=>{
     });
     res.json({message:"logout succesfull"})
     
+}
+
+export const getUserPosts=async(req,res)=>{
+    try {
+        const userId=req.user.id;
+        const user=await userModel.findById(userId).populate('post');
+        if(!user){
+            return res.json({message:"user not found"})
+        }
+        return res.json({message:"user posts",posts:user.post})
+    } catch (error) {   
+        if(error){
+            console.log(error);
+            return res.json({message:error.message})
+        }
+    }
 }
 

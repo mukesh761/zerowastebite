@@ -14,6 +14,8 @@ const Signup = () => {
   const [cPassword, setcPassword] = useState(null)
     const [loading, setloading] = useState(false)
     const [formate, setformate]=useState(true)
+    const [role, setrole] = useState("Donor")
+    const [orgname, setorgname] = useState(null)
     const {user,setuser,islogin,setislogin}=useContext(userContext)
 
     const handleSubmit=async(e)=>{
@@ -26,7 +28,7 @@ const Signup = () => {
       return
     }
      
-    const data={name,email,password,role:'NGO'}
+    const data={name,email,password,role,orgname}
     try{
       const res=await axios.post(`${backend}/user/signup`,data,{withCredentials:true})
       console.log(res.data)
@@ -61,15 +63,49 @@ const Signup = () => {
         </div>
         <img src={LoginImg} alt="Login" />
     </div>
-    <div className='right flex flex-col items-center justify-center rounded-lg w-[90%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] gap-5 md:w-[40%] md:h-96'>
+    <div className='right flex flex-col items-center justify-center rounded-lg w-[90%] shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] gap-5 md:w-[40%] '>
         <h1 className='text-xl font-semibold pb-5'>Login</h1>
         <form action="" className='flex flex-col items-center justify-center gap-2' onSubmit={handleSubmit}>
+      <h2 className='font-bold text-lg'>Choose your Role</h2>
+          <div className='flex items-center justify-center gap-5'>
+
+      <label>
+        <input
+          type="radio"
+          value="Donor"
+          checked={role === "Donor"}
+          onChange={(e) => setrole(e.target.value)}
+        />
+        Donor
+      </label>
+
+      <br />
+
+      <label>
+        <input
+          type="radio"
+          value="NGO"
+          checked={role === "NGO"}
+          onChange={(e) => setrole(e.target.value)}
+        />
+        NGO
+      </label>
+
+      
+    </div>
              <input type="text" 
             className='h-12 w-84 border p-2 rounded-lg'
             placeholder="Enter your name"
             value={name}
             onChange={(e)=>setname(e.target.value)}
              />
+            {role=='NGO' && 
+             <input type="text" 
+            className='h-12 w-84 border p-2 rounded-lg'
+            placeholder="Enter your organisation name"
+            value={orgname}
+            onChange={(e)=>setorgname(e.target.value)}
+             />}
             <input type="email" 
             className={formate?'h-12 w-84 border p-2 rounded-lg':'h-12 w-84 border p-2 rounded-lg border-red-600'}
             placeholder="Enter your email"
@@ -88,6 +124,10 @@ const Signup = () => {
             value={cPassword}
             onChange={(e)=>setcPassword(e.target.value)}
              />
+            {role=='NGO' &&  <div>
+              <h1>enter your related documents</h1>
+              <input type="file" className='h-10 w-full border'/>
+             </div>}
             <input type="submit" value="Login" className='h-12 w-84 bg-green-600 text-white rounded-lg' />
             
         </form>
