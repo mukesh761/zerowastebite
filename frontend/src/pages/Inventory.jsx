@@ -15,7 +15,7 @@ const Inventory = () => {
 
     const fetchItems = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/post/getfood', { withCredentials: true })
+            const response = await axios.get('https://zerowastebitebackend.onrender.com/post/getfood', { withCredentials: true })
             console.log(response.data)
             setitems(response.data)
 
