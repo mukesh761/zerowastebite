@@ -6,8 +6,10 @@ import { useState } from 'react'
 import axios from 'axios'
 import { userContext } from '../context/User.context'
 const backend = import.meta.env.VITE_BACKEND
+import { useNavigate } from 'react-router'
 
 const Signup = () => {
+  const navigate=useNavigate()
     const [name, setname] = useState(null)
   const [email, setemail] = useState(null)
   const [password, setpassword] = useState(null)
@@ -131,8 +133,8 @@ const Signup = () => {
             <input type="submit" value="Login" className='h-12 w-84 bg-green-600 text-white rounded-lg' />
             
         </form>
-        <div className=' mb-5'>
-            <p><a href="/signup" className='text-blue-500 mb-5'>Don't have an account? Sign up</a></p>
+        <div className=' mb-5' onClick={()=>navigate('/signup')}>
+            <p><a className='text-blue-500 mb-5'>Don't have an account? Sign up</a></p>
         </div>
     </div>
     </div>
