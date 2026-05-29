@@ -94,11 +94,11 @@ export const logoutUser=(req,res)=>{
 export const getUserPosts=async(req,res)=>{
     try {
         const userId=req.user.id;
-        const user=await userModel.findById(userId).populate('post');
+        const user=await userModel.findById(userId).populate(['post','requests']);
         if(!user){
             return res.json({message:"user not found"})
         }
-        return res.json({message:"user posts",posts:user.post})
+        return res.json({message:"user posts",posts:user.post,requests:user.requests})
     } catch (error) {   
         if(error){
             console.log(error);

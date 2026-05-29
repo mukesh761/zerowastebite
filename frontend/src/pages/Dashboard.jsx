@@ -58,7 +58,7 @@ const Dashboard = () => {
             </div>
           </div>
         <div className='w-full'>
-                        {items.map((item, index) => (
+                        {items > 0 && items.map((item, index) => (
                             <FoodPost key={index} item={item} />
                         ))}
                     </div>

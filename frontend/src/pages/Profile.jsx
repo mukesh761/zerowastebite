@@ -12,6 +12,7 @@ const Profile = () => {
 
     const [selected, setselected] = useState('posts')
     const [posts, setposts] = useState([])
+    const [requests, setrequests] = useState([])
     const user=JSON.parse(localStorage.getItem('user'))
     console.log(user)
     const {signOut}=useContext(userContext)
@@ -22,6 +23,7 @@ const Profile = () => {
             const res=await axios.get(`${backend}/user/getposts`,{withCredentials:true})
             const data=await res.data
             setposts(data.posts)
+            setrequests(data.requests)
             console.log(data)
         } catch (error) {
             console.error('Error fetching posts:', error)
@@ -72,8 +74,8 @@ const Profile = () => {
                     <p>No posts found.</p>
                 )}  
 
-                 {selected === 'requests' &&posts.length > 0 ? (
-                    posts.map((item) => (
+                 {selected === 'requests' && requests.length > 0 ? (
+                    requests.map((item) => (
                         <div key={item._id} className=' p-2 rounded-md mt-2 flex justify-between shadow-lg'>
                             <h1>{item.food}</h1>
                             <h1>{item.quantity}</h1>
@@ -81,6 +83,9 @@ const Profile = () => {
                             <h1>{item.expireIn}</h1>
                             <button className='bg-red-500 text-white px-4 py-2 rounded-md' >
                                 accept
+                            </button>
+                            <button className='bg-gray-500 text-white px-4 py-2 rounded-md' >
+                                reject
                             </button>
                         </div>
                     ))

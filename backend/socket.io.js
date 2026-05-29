@@ -14,20 +14,38 @@ const io = new Server(httpServer, {
   },
 })
 
+let users={}
+let socketIdToUserId={}
+
 io.on('connection',(socket)=>{
-    let users={}
-    socket.on('adduser',({userId})=>{
+    console.log('connected to socket io',socket.id)
+    socket.on('adduser',async({userId})=>{
+        console.log('adding user to socket io',userId)
         users[userId]=socket.id
+        socketIdToUserId[socket.id]=userId
+        console.log(users)
     })
-   console.log('user connected',socket.id)
-   socket.on('request',async ({item})=>{
+    socket.on('request',async ({item})=>{
+        console.log('request received in socket',item)
+        let user=await userModel.findOne({_id:item.userId})
+        
+ const targetSocketId = users[user._id]
+        if (targetSocketId) {
+          io.to(targetSocketId).emit('requestreceived', {
+            message: 'You received a new request',
+            item,
+            by: socketIdToUserId[socket.id],
+          })
+        }
+       })
+       socket.on('gotrequest',async({data})=>{
+        console.log('gotrequest received in socket',data)
+        let user=await userModel.findOne({_id:data.item.userId}).populate('requests')
+        user.requests.push(data?.item);
+        console.log(user);
+        await user.save();
 
-    let user=await userModel.findOne({_id:item.userId})
-    console.log('request received',item,user)
-    console.log(users[item.userId])
-
-    socket.to(users[item.userId]).emit('requestreceived',{item,user})
-   })
+       })
 })
 
 export {io,app,httpServer}

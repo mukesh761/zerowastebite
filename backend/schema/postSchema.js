@@ -30,6 +30,10 @@ const postModel= new mongoose.Schema({
     },
     image:{
         url:String,
+    },
+    status:{
+        type:String,
+        default:'available'
     }
 })
 

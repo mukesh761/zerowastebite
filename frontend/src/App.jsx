@@ -21,14 +21,12 @@ const App = () => {
   }, [islogin])
 
   const {socket}=useContext(socketContext)
-  useEffect(() => {
-    if (socket && islogin) {
-      socket.on('connect', () => {
-        console.log('Connected to Socket.IO server');
-      });
-      socket.emit('adduser', { userId: JSON.parse(localStorage.getItem('user'))?._id });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   socket.on('requestreceived', (data) => {
+  //     console.log('Request received:', data )
+  //   })
+
+  // }, [socket]);
 
   return (
     <Routes>

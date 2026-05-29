@@ -22,6 +22,7 @@ const Postdetail = ({show,setshow, item}) => {
         }
     }
 
+
     const handleChat=(e)=>{
         try {
             navigation('/chat')
@@ -35,6 +36,13 @@ useEffect(() => {
     setMapSrc(`https://maps.google.com/maps?q=${encoded}&output=embed`);
   }
 }, [item]);
+
+useEffect(()=>{
+    socket.on('notification',(data)=>{
+        console.log('notification received',data)
+    }
+    )
+},[socket])
 
   return (
     <div className= {show?'rounded-md border bg-white z-10 absolute p-4 flex w-full items-center justify-between':'hidden'}>
