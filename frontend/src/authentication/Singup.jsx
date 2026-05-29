@@ -130,11 +130,11 @@ const Signup = () => {
               <h1>enter your related documents</h1>
               <input type="file" className='h-10 w-full border'/>
              </div>}
-            <input type="submit" value="Login" className='h-12 w-84 bg-green-600 text-white rounded-lg' />
+            <input type="submit" value="Signup" className='h-12 w-84 bg-green-600 text-white rounded-lg' />
             
         </form>
-        <div className=' mb-5' onClick={()=>navigate('/signup')}>
-            <p><a className='text-blue-500 mb-5'>Don't have an account? Sign up</a></p>
+        <div className=' mb-5' onClick={()=>navigate('/login')}>
+            <p><a className='text-blue-500 mb-5'>Already have an account? Login</a></p>
         </div>
     </div>
     </div>
