@@ -38,7 +38,7 @@ const Inventory = () => {
                 <div className='top flex items-center justify-between w-full shadow-md rounded-md p-2 '>
                     <div>
                         <h1 className='text-xl font-semibold'>Inventory management</h1>
-                        <h3 className='font-light text-neutral-500'>Today, April 10th 2026</h3>
+                        <h3 className='font-light text-neutral-500'>Today, May 29th 2026</h3>
                     </div>
                     <div className='search h-8 w-60 rounded-full border flex items-center justify-center'>
                         <CiSearch className='h-6 w-6' />
@@ -53,7 +53,7 @@ const Inventory = () => {
                             <h1 className='font-semibold'>Total Items</h1>
                         </div>
                         <h3>Total items left in stock</h3>
-                        <h1 className='text-2xl font-bold'>112</h1>
+                        <h1 className='text-2xl font-bold'>10</h1>
                     </div>
                     <div className='p-2 h-30 w-40 rounded-md shadow-md bg-neutral-100 hover:scale-105 transition-all delay-150'>
                         <div className='flex items-center gap-2'>
@@ -61,7 +61,7 @@ const Inventory = () => {
                             <h1 className='font-semibold'>Expired Items</h1>
                         </div>
                         <h3>Total items that has expired</h3>
-                        <h1 className='text-2xl font-bold'>112</h1>
+                        <h1 className='text-2xl font-bold'>0</h1>
                     </div>
                     <div className='p-2 h-30 w-40 rounded-md shadow-md bg-neutral-100 hover:scale-105 transition-all delay-150'>
                         <div className='flex items-center gap-2'>
@@ -69,7 +69,7 @@ const Inventory = () => {
                             <h1 className='font-semibold'>Low stock</h1>
                         </div>
                         <h3>Items that are left less</h3>
-                        <h1 className='text-2xl font-bold'>112</h1>
+                        <h1 className='text-2xl font-bold'>0</h1>
                     </div>
                 </div>
                 <div className='InventorOverview w-full'>
